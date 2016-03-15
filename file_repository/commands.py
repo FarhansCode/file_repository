@@ -15,5 +15,7 @@ def del_inode(inode):
 	# Now delete the inode links from the DB
 	files.all().delete()
 
-	if inode.name != '': # Make sure its not the root repository 
-		return inode.delete()
+def create_root(rootname):
+	new_root = Inode(name='root', rootname=rootname, is_directory=True)
+	new_root.save()
+	return new_root

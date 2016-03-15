@@ -9,7 +9,7 @@ from file_repository.models import Inode
 
 import re
 
-def get_inode(filedir):
+def get_inode(filedir, rootname):
 
 	# Get rid of //'s, do a redirection if necessary
 	if filedir != None:
@@ -28,7 +28,7 @@ def get_inode(filedir):
 	# End of redirection block
 
 	# Set their default values, starting at the root directory
-	current_directory = Inode.objects.get(name='')
+	current_directory = Inode.objects.get(rootname=rootname)
 	current_file = None
 
 	### Find the path
