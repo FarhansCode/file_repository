@@ -1,7 +1,5 @@
 from django import forms
 
-#from file_repository.models import Directory
-#from file_repository.models import File
 from file_repository.models import Inode
 
 class DirectoryForm(forms.ModelForm):

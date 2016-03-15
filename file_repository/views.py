@@ -6,7 +6,6 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
 from file_repository.models import Inode
-from file_repository.forms import DirectoryForm, FileForm
 
 import re
 
