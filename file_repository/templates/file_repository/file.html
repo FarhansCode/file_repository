@@ -1,0 +1,34 @@
+<body style="background-color:black; color:white; ">
+
+Current Directory: {% if current_directory.name == '' %}Index{% else %}{{ current_directory.name }}{%endif %}
+</br>
+{% if previousdir %}<a href="{% url 'file_repository:repo' %}{{ previousdir }}">Back</a>{% endif %}
+</br></br>
+
+<strong>Directories</strong>
+<ul>
+{% for directory in current_directory.directories.all %}
+<li><a href="{% url 'file_repository:repo' %}{{ filedir }}{{ directory.name }}">{{ directory.name }}</a></li>
+{% endfor %}
+{% for file in current_directory.files.all %}
+<li><a href="{% url 'file_repository:repo' %}{{ filedir }}{{ file.name }}">{{ file.name }}</a></li>
+{% endfor %}
+</ul>
+
+<form method=POST>{% csrf_token %}
+<table>
+{{ directoryform }}
+<br/>
+</table>
+<button>Add new directory</button>
+</form>
+
+<form enctype="multipart/form-data" method=POST>{% csrf_token %}
+<table>
+{{ fileform }}
+<br/>
+</table>
+<button>Add new file</button>
+</form>
+
+</body>

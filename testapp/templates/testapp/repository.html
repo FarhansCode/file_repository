@@ -1,0 +1,27 @@
+Current Directory: {% if current_directory.name == '' %}Index{% else %}{{ current_directory.name }}{%endif %}
+</br>
+{% if previousdir %}<a href="{% url 'file_repository:repo' %}{{ previousdir }}">Back</a>{% endif %}
+</br></br>
+
+<table>
+<tr><th>Type</th><th>Name</th></tr>
+{% for inode in current_directory.inodes.all %}
+<tr><td>{% if inode.is_directory == True %}Directory{% else %}File{% endif %}</td><td><a href="{{ filedir }}{{ inode.name }}">{{ inode.name }}</td></tr>
+{% endfor %}
+</table>
+
+<form method=POST>{% csrf_token %}
+<table>
+{{ directoryform }}
+<br/>
+</table>
+<button>Add new directory</button>
+</form>
+
+<form enctype="multipart/form-data" method=POST>{% csrf_token %}
+<table>
+{{ fileform }}
+<br/>
+</table>
+<button>Add new file</button>
+</form>

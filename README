@@ -1,0 +1,3 @@
+To initialize, you must do the following:
+Inode(name='').save()
+This creates the root index directory
