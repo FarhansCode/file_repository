@@ -17,7 +17,7 @@ def del_inode(inode):
     files.all().delete()
 
 def create_root(rootname):
-    new_root = Inode(name='root', rootname=rootname, is_directory=True)
+    new_root = Inode(name='', rootname=rootname, is_directory=True)
     new_root.save()
     return new_root
 
@@ -35,3 +35,19 @@ def create_directory(parent, name):
     new_directory.save()
     parent.inodes.add(new_directory)
     return new_directory
+
+def get_path(inode):
+    path = ''
+    rootpath = inode
+
+    while True:
+        if rootpath.inode_set.count() == 1:
+            rootpath = rootpath.inode_set.get()
+            if rootpath.name is not '':
+                path = rootpath.name + '/' + path
+            else:
+                break
+        else: # This should never happen unless the directory is doubly linked 
+            break
+
+    return path

@@ -1,6 +1,7 @@
+<br>
 Current Directory: {% if current_directory.name == '' %}Index{% else %}{{ current_directory.name }}{%endif %}
 </br>
-{% if previousdir %}<a href="{% url 'file_repository:repo' %}{{ previousdir }}">Back</a>{% endif %}
+<a href="{% url 'repository' filedir=current_path %}">Back</a>
 </br></br>
 
 <table>
