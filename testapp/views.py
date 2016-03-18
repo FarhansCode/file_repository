@@ -44,20 +44,11 @@ def repository(request, filedir):
             current_directory.inodes.get( name = directoryform.cleaned_data['name'])
          except Inode.DoesNotExist:
             create_directory(current_directory, directoryform.cleaned_data['name'])
-#            newdir = Inode( name=directoryform.cleaned_data['name'], is_directory=True )
-#            newdir.save()
-#            current_directory.inodes.add(newdir)
       elif fileform.is_valid():
          try:
             current_directory.inodes.get(name=fileform.cleaned_data['content'].name )
          except Inode.DoesNotExist:
             create_file(current_directory, fileform.cleaned_data['content'].name, fileform.cleaned_data['content'])
-#            new_file = Inode(is_directory=False)
-#            new_file.content = fileform.cleaned_data['content']
-#            new_file.name = fileform.cleaned_data['content'].name
-#            new_file.save()
-#            current_directory.inodes.add(new_file)
-#            current_directory.save()
       else: #Invalid both, just continue
          pass
    else:
