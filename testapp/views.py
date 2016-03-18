@@ -8,8 +8,7 @@ from django.http import HttpResponseServerError
 # You would have to do this in your application
 from file_repository.models import Inode
 from file_repository.forms import DirectoryForm, FileForm
-from file_repository.views import get_inode
-from file_repository.commands import del_inode, get_path, create_root, create_file, create_directory
+from file_repository.commands import get_inode, del_inode, get_path, create_root, create_file, create_directory
 
 import magic
 
