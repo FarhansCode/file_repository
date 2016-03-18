@@ -7,36 +7,36 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('file_repository', '0001_initial'),
-    ]
+     dependencies = [
+          ('file_repository', '0001_initial'),
+     ]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='directory',
-            name='directories',
-        ),
-        migrations.RemoveField(
-            model_name='directory',
-            name='files',
-        ),
-        migrations.RemoveField(
-            model_name='inode',
-            name='directories',
-        ),
-        migrations.RemoveField(
-            model_name='inode',
-            name='files',
-        ),
-        migrations.AddField(
-            model_name='inode',
-            name='inodes',
-            field=models.ManyToManyField(to='file_repository.Inode'),
-        ),
-        migrations.DeleteModel(
-            name='Directory',
-        ),
-        migrations.DeleteModel(
-            name='File',
-        ),
-    ]
+     operations = [
+          migrations.RemoveField(
+                model_name='directory',
+                name='directories',
+          ),
+          migrations.RemoveField(
+                model_name='directory',
+                name='files',
+          ),
+          migrations.RemoveField(
+                model_name='inode',
+                name='directories',
+          ),
+          migrations.RemoveField(
+                model_name='inode',
+                name='files',
+          ),
+          migrations.AddField(
+                model_name='inode',
+                name='inodes',
+                field=models.ManyToManyField(to='file_repository.Inode'),
+          ),
+          migrations.DeleteModel(
+                name='Directory',
+          ),
+          migrations.DeleteModel(
+                name='File',
+          ),
+     ]

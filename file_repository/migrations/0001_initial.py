@@ -7,42 +7,42 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    initial = True
+     initial = True
 
-    dependencies = [
-    ]
+     dependencies = [
+     ]
 
-    operations = [
-        migrations.CreateModel(
-            name='Directory',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('directories', models.ManyToManyField(to='file_repository.Directory')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='File',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('content', models.FileField(upload_to='file_repository/_files')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Inode',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('is_directory', models.BooleanField(default=False)),
-                ('content', models.FileField(upload_to='file_repository/_files')),
-                ('directories', models.ManyToManyField(related_name='directory', to='file_repository.Inode')),
-                ('files', models.ManyToManyField(related_name='file', to='file_repository.Inode')),
-            ],
-        ),
-        migrations.AddField(
-            model_name='directory',
-            name='files',
-            field=models.ManyToManyField(to='file_repository.File'),
-        ),
-    ]
+     operations = [
+          migrations.CreateModel(
+                name='Directory',
+                fields=[
+                     ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                     ('name', models.CharField(max_length=255)),
+                     ('directories', models.ManyToManyField(to='file_repository.Directory')),
+                ],
+          ),
+          migrations.CreateModel(
+                name='File',
+                fields=[
+                     ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                     ('name', models.CharField(max_length=255)),
+                     ('content', models.FileField(upload_to='file_repository/_files')),
+                ],
+          ),
+          migrations.CreateModel(
+                name='Inode',
+                fields=[
+                     ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                     ('name', models.CharField(max_length=255)),
+                     ('is_directory', models.BooleanField(default=False)),
+                     ('content', models.FileField(upload_to='file_repository/_files')),
+                     ('directories', models.ManyToManyField(related_name='directory', to='file_repository.Inode')),
+                     ('files', models.ManyToManyField(related_name='file', to='file_repository.Inode')),
+                ],
+          ),
+          migrations.AddField(
+                model_name='directory',
+                name='files',
+                field=models.ManyToManyField(to='file_repository.File'),
+          ),
+     ]

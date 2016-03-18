@@ -7,14 +7,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('file_repository', '0002_auto_20160315_0601'),
-    ]
+     dependencies = [
+          ('file_repository', '0002_auto_20160315_0601'),
+     ]
 
-    operations = [
-        migrations.AddField(
-            model_name='inode',
-            name='rootname',
-            field=models.CharField(default='', max_length=10),
-        ),
-    ]
+     operations = [
+          migrations.AddField(
+                model_name='inode',
+                name='rootname',
+                field=models.CharField(default='', max_length=10),
+          ),
+     ]

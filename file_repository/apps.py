@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class PollsConfig(AppConfig):
-    name = 'file_repository'
+     name = 'file_repository'
