@@ -8,7 +8,8 @@ from django.http import HttpResponseServerError
 from file_repository.models import Inode
 from file_repository.forms import DirectoryForm, FileForm
 from file_repository.views import get_inode
-#import file_repository
+from file_repository.commands import del_inode, create_root, create_file, create_directory
+
 import magic
 
 def index(request):
@@ -42,19 +43,21 @@ def repository(request, filedir):
          try:
             current_directory.inodes.get( name = directoryform.cleaned_data['name'])
          except Inode.DoesNotExist:
-            newdir = Inode( name=directoryform.cleaned_data['name'], is_directory=True )
-            newdir.save()
-            current_directory.inodes.add(newdir)
+            create_directory(current_directory, directoryform.cleaned_data['name'])
+#            newdir = Inode( name=directoryform.cleaned_data['name'], is_directory=True )
+#            newdir.save()
+#            current_directory.inodes.add(newdir)
       elif fileform.is_valid():
          try:
             current_directory.inodes.get(name=fileform.cleaned_data['content'].name )
          except Inode.DoesNotExist:
-            new_file = Inode(is_directory=False)
-            new_file.content = fileform.cleaned_data['content']
-            new_file.name = fileform.cleaned_data['content'].name
-            new_file.save()
-            current_directory.inodes.add(new_file)
-            current_directory.save()
+            create_file(current_directory, fileform.cleaned_data['content'].name, fileform.cleaned_data['content'])
+#            new_file = Inode(is_directory=False)
+#            new_file.content = fileform.cleaned_data['content']
+#            new_file.name = fileform.cleaned_data['content'].name
+#            new_file.save()
+#            current_directory.inodes.add(new_file)
+#            current_directory.save()
       else: #Invalid both, just continue
          pass
    else:
