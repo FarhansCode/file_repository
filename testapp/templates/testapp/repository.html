@@ -7,7 +7,7 @@ Current Directory: {% if current_directory.name == '' %}Index{% else %}{{ curren
 <table>
 <tr><th>Type</th><th>Name</th></tr>
 {% for inode in current_directory.inodes.all %}
-<tr><td>{% if inode.is_directory == True %}Directory{% else %}File{% endif %}</td><td><a href="{{ filedir }}{{ inode.name }}">{{ inode.name }}</td></tr>
+<tr><td>{% if inode.is_directory == True %}Directory{% else %}File{% endif %}</td><td><a href="{% url 'repository' filedir=current_path %}{{ inode.name }}">{{ inode.name }}</td></tr>
 {% endfor %}
 </table>
 
