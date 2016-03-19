@@ -1,7 +1,6 @@
 from file_repository.models import Inode
 import os, re
 
-
 # Recursive function to delete both files and directories
 def del_inode(inode):
     # Recursively go through all subdirectories
@@ -56,6 +55,10 @@ from django.shortcuts import render
 
 def get_inode(filedir, rootname):
 
+    # Get rid of the first /
+    if len(filedir) is not 0 and filedir[0] == '/':
+        return (301, None, None, '')
+
     # Get rid of //'s, do a redirection if necessary
     if filedir != None:
         tempurl = filedir
@@ -107,7 +110,9 @@ def get_inode(filedir, rootname):
 
     ### If its a directory, put in trailing /
     if current_file == None: # Its a directory
-        if filedir != None and filedir[-1:] != '/':
+        if filedir == '':
+            pass
+        elif filedir != None and filedir[-1:] != '/':
             return (301, None, None, filedir + '/')
     ### Accept final trialing /
 
