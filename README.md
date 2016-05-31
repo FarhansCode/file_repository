@@ -25,17 +25,14 @@ Inode(rootname='testapp', name='').save()
 ## How to use
 
 1. Download and save the code into your project directory.
-2. Insert the application in your INSTALLED_APPS list. Example:
-https://github.com/FarhansCode/file_repository/blob/master/testapp/settings.py#L40
+2. Insert the application in your INSTALLED_APPS list. [Example](https://github.com/FarhansCode/file_repository/blob/master/testapp/settings.py#L40)
 3. Create the database migrations and perform the migration.
 4. Create the initial root Inode element.
 ```python
 Inode(rootname='testapp', name='').save()
-``
+```
 There can be multiple roots, each whose name is set to ''.
-5. Add in the necessary line in your urls.py file. Example is listed here:
-https://github.com/FarhansCode/file_repository/blob/master/testapp/urls.py#L7
-6. 
+5. Add in the necessary line in your urls.py file. Example is listed [here](https://github.com/FarhansCode/file_repository/blob/master/testapp/urls.py#L7).
 
 ## Help
 
