@@ -19,8 +19,10 @@ I have not yet figured out how to add an initializer in a migration, so you will
 have to create an initial root Inode.
 
 ```python
-Inode(rootname='testapp', name='').save()
+Inode(rootname='testapp', name='/').save()
 ```
+
+If you do not do this, it will return a 500 error message.
 
 ## How to use
 
@@ -29,19 +31,18 @@ Inode(rootname='testapp', name='').save()
 3. Create the database migrations and perform the migration.
 4. Create the initial root Inode element.
 ```python
-Inode(rootname='testapp', name='').save()
+Inode(rootname='testapp', name='/').save()
 ```
-There can be multiple roots, each whose name is set to ''.
+There can be multiple roots, each whose name is set to '/'.
 5. Add in the necessary line in your urls.py file. Example is listed [here](https://github.com/FarhansCode/file_repository/blob/master/testapp/urls.py#L7).
 
 ## Help
 
 This is my first public submission to the Internets. Please review my code and
-provide suggestions. In particular, I think the get_path() in 
-file_repository/commands.py method is ugly and does too much.
+provide suggestions. Two things I need help on.
 
-Second, I use regular expressions twice in this project. Please review them.
-They are located in the testapp/urls.py and in get_path().
+First, I use regular expressions a few times in this project. I am still new
+to regex and it would be nice to have it reviewed.
 
-Last, I am not yet versed in writing Django unittests. Some sample unittests
+Second, I am not yet versed in writing Django unittests. Some sample unittests
 would be nice!
