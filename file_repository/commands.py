@@ -36,24 +36,44 @@ def create_directory(parent, name):
     parent.inodes.add(new_directory)
     return new_directory
 
-def get_path(inode):
-    path = ''
-    rootpath = inode
-
-    while True:
-        if rootpath.inode_set.count() == 1:
-            rootpath = rootpath.inode_set.get()
-            if rootpath.name is not '':
-                path = rootpath.name + '/' + path
-            else:
-                break
-        else: # This should never happen unless the directory is doubly linked 
-            break
-
-    return path
-from django.shortcuts import render
-
 def get_inode(filedir, rootname):
+
+    try:
+        rootdirectory = Inode.objects.get(rootname=rootname,
+                                          name='/',
+                                          is_directory=True)
+    except Inode.DoesNotExist:
+        error_inode = Inode(rootname=rootname, name='/', is_directory=True)
+        error_inode.error = 500 
+        return error_inode
+
+    if filedir == None:
+        return rootdirectory
+
+    current_directory = rootdirectory
+    tempurl = filedir
+    while tempurl:
+        lastnode = re.match('^([\w|\-|\.]+)(\/?)$', tempurl) 
+        if lastnode is not None:
+            try:
+                if lastnode.group(2) is '' or lastnode.group(2) is '/':
+                    lastinode = current_directory.inodes.get(name=lastnode.group(1))
+                    return lastinode
+            except Inode.DoesNotExist:
+                current_directory.error = 404
+                return current_directory
+
+        print("----------> %s" % tempurl)
+#        response = re.match('^([\w|\-|\.\ ]+)\/(.+)', tempurl)
+        response = re.match('^([\w\-\.\ ]+)\/([\w\-\.\ \/]+)', tempurl)
+        if response == None:
+            continue
+        tree, tempurl = response.groups()
+        if tree: # This is a directory
+            current_directory = current_directory.inodes.get(name=tree, is_directory=True)
+            continue
+
+def get_inode_old(filedir, rootname):
 
     # Get rid of the first /
     if len(filedir) is not 0 and filedir[0] == '/':

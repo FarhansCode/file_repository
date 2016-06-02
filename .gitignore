@@ -6,3 +6,4 @@ build/
 dist/
 db.sqlite3
 _files/
+migrations/

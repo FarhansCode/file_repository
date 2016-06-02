@@ -17,3 +17,20 @@ class Inode(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_path(self):
+        path = ''
+        rootpath = self 
+
+        while True:
+            if rootpath.inode_set.count() == 1:
+                rootpath = rootpath.inode_set.get()
+                if rootpath.name is not '/': # Not last element
+                    path = rootpath.name + '/' + path
+                elif rootpath.name is '/': # Last element
+                    path = '/' + path
+                    break
+            else: # Only for root elements
+                path = '/' + path
+                break
+        return path
