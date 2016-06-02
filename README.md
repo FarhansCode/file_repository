@@ -36,6 +36,9 @@ Inode(rootname='testapp', name='/').save()
 There can be multiple roots, each whose name is set to '/'.
 5. Add in the necessary line in your urls.py file. Example is listed [here](https://github.com/FarhansCode/file_repository/blob/master/testapp/urls.py#L7).
 
+## Where do files go?
+By default, files are uploaded into file_repository/_file. You can change that path [here](https://github.com/FarhansCode/file_repository/blob/master/file_repository/models.py#L14).
+
 ## Help
 
 This is my first public submission to the Internets. Please review my code and
