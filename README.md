@@ -19,7 +19,7 @@ I have not yet figured out how to add an initializer in a migration, so you will
 have to create an initial root Inode.
 
 ```python
-Inode(rootname='testapp', name='/').save()
+Inode(rootname='testapp', name='/', is_directory=True).save()
 ```
 
 If you do not do this, it will return a 500 error message.
@@ -33,7 +33,6 @@ If you do not do this, it will return a 500 error message.
 ```python
 Inode(rootname='testapp', name='/').save()
 ```
-There can be multiple roots, each whose name is set to '/'.
 5. Add in the necessary line in your urls.py file. Example is listed [here](https://github.com/FarhansCode/file_repository/blob/master/testapp/urls.py#L7).
 
 ## Where do files go?
