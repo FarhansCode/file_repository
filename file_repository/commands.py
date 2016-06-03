@@ -6,6 +6,10 @@ def create_root(rootname):
     new_root.save()
     return new_root
 
+def get_root(rootname):
+    root = Inode.objects.get(name='/', rootname=rootname, is_directory=True)
+    return root
+
 def get_inode(filedir, rootname):
 
     try: # Get the root or die
@@ -40,5 +44,6 @@ def get_inode(filedir, rootname):
             continue
         tree, tempurl = response.groups()
         if tree: # This is a directory
-            current_directory = current_directory.inodes.get(name=tree, is_directory=True)
+            current_directory = current_directory.inodes.get(name=tree,
+                                                             is_directory=True)
             continue

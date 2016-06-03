@@ -80,7 +80,6 @@ class Inode(models.Model):
     class Error404(Exception):
         def __str__(self):
             return repr("Inode does not exist")
-        pass
     class Error500(Exception):
         def __init__(self, msg):
             self.msg = msg

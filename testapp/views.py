@@ -28,7 +28,7 @@ def repository(request, filedir):
     except Inode.Error500:
         return HttpResponseServerError('<h1>Internal server error</h1>')
     except Inode.Redirect302 as e:
-        return HttpResponsePermanentRedirect('/repository/' + e.path)
+        return HttpResponsePermanentRedirect('/repository/' + e.newpath)
 
     if request.method == 'POST':
         deleteinode = DeleteInode(request.POST)
