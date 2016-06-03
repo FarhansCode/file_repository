@@ -1,19 +1,11 @@
 
 <table>
 <tr><th>Type</th><th>Name</th></tr>
-{% if filedir == '/' %}
 
 {% for subnode in directorynode.inodes.all %}
-{{ subnode }}
+<a href="{% url 'repository' filedir='' %}{{filedir}}{{ subnode }}{% if subnode.is_directory %}/{% endif %}">{{filedir}}{{ subnode }}{% if subnode.is_directory %}/{% endif %}</a></br>
 {% endfor %}
 
-{% else %}
-
-{% for subnode in directorynode.inodes.all %}
-{{filedir}}{{ subnode }}
-{% endfor %}
-
-{% endif %}
 <br/>
 </table>
 

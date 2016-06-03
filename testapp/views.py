@@ -8,7 +8,7 @@ from django.http import HttpResponseServerError
 # You would have to do this in your application
 from file_repository.models import Inode
 from file_repository.forms import DirectoryForm, FileForm
-from file_repository.commands import get_inode, del_inode, create_root, create_file, create_directory
+from file_repository.commands import get_inode
 
 import magic
 
@@ -32,12 +32,10 @@ def repository(request, filedir):
         directoryform = DirectoryForm(request.POST)
         fileform = FileForm(request.POST, request.FILES)
         if directoryform.is_valid():
-            create_directory(i,
-                             directoryform.cleaned_data['name'])
+            i.create_directory(directoryform.cleaned_data['name'])
         elif fileform.is_valid():
-            create_file(i,
-                        fileform.cleaned_data['content'].name,
-                        fileform.cleaned_data['content'])
+            i.create_file(fileform.cleaned_data['content'].name,
+                          fileform.cleaned_data['content'])
 
     if i.is_directory==False:
         file_content = i.content.read()
