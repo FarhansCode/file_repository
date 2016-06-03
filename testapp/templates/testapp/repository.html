@@ -1,11 +1,11 @@
 
 <table>
 <tr><th>Type</th><th>Name</th></tr>
-
+<form method=POST>{% csrf_token %}
 {% for subnode in directorynode.inodes.all %}
-<a href="{% url 'repository' filedir='' %}{{filedir}}{{ subnode }}{% if subnode.is_directory %}/{% endif %}">{{filedir}}{{ subnode }}{% if subnode.is_directory %}/{% endif %}</a></br>
+<a href="{% url 'repository' filedir='' %}{{filedir}}{{ subnode }}{% if subnode.is_directory %}/{% endif %}">{{filedir}}{{ subnode }}{% if subnode.is_directory %}/{% endif %}</a>&nbsp;<button name="inodeid" value="{{ subnode.id }}">X</button></br>
 {% endfor %}
-
+</form>
 <br/>
 </table>
 

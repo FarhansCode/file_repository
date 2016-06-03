@@ -11,3 +11,6 @@ class FileForm(forms.ModelForm):
     class Meta:
         model = Inode 
         fields = ['content']
+
+class DeleteInode(forms.Form):
+    inodeid = forms.IntegerField()
