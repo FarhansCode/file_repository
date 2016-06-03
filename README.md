@@ -13,7 +13,17 @@ Models.FileField() only stores files in a single directory. You can specify a
 where all files are stored. This code adds an abstraction layer to help organize
 files in a hierarchical manner.
 
+## License
+
+Licensed under the BSD. You don't have to return your code to me, but it would
+be nice :)
+
 ## Initialization
+
+The testapp requires the python-magic module. You can install as follows:
+```
+pip install python-magic
+```
 
 I have not yet figured out how to add an initializer in a migration, so you will
 have to create an initial root Inode.
@@ -41,10 +51,10 @@ By default, files are uploaded into file_repository/_file. You can change that p
 ## Help
 
 This is my first public submission to the Internets. Please review my code and
-provide suggestions. Two things I need help on.
+provide suggestions. Few things I need help on. 
 
-First, I use regular expressions a few times in this project. I am still new
-to regex and it would be nice to have it reviewed.
+First, I use regular expressions a few times in this project. I am still new to
+regex and it would be nice to have it reviewed.
 
-Second, I am not yet versed in writing Django unittests. Some sample unittests
-would be nice!
+Second, I am not yet versed in writing Django unittests. Some unittests would
+be nice!
