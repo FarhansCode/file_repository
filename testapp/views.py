@@ -33,8 +33,6 @@ def repository(request, filedir):
         deleteinode = DeleteInode(request.POST)
 
         if deleteinode.is_valid():
-            print("This is valid")
-            print(deleteinode.cleaned_data['inodeid'])
             deletenode = Inode.objects.get(id=deleteinode.cleaned_data['inodeid'])
             deletenode.deletenode()
         else:

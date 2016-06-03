@@ -63,19 +63,21 @@ class Inode(models.Model):
         return new_directory
 
     def deletenode(self):
-        # Recursively go through all subdirectories
-        directories = self.inodes.filter(is_directory = True)
-        for dir_inode in directories:
-            dir_inode.deletenode()
-        # Now delete them all
-        directories.all().delete()
-        # And then wipe out the files
-        files = self.inodes.filter(is_directory = False)
-        for subfile in files:
-            os.remove(subfile.name) # Delete files from the HD
-        # Now delete the inode links from the DB
-        files.all().delete()
-        self.delete()
+        if self.is_directory == False:
+            os.remove(self.content.path)
+            self.delete()
+        else:
+            # Recursively go through all subdirectories
+            directories = self.inodes.filter(is_directory = True)
+            for dir_inode in directories:
+                dir_inode.deletenode()
+            # Now delete them all
+            directories.all().delete()
+            # And then wipe out the files
+            files = self.inodes.filter(is_directory = False)
+            for subfile in files:
+                subfile.deletenode()
+            self.delete()
 
     class methods:
         def createroot(rootname):

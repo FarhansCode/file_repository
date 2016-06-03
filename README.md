@@ -29,7 +29,7 @@ I have not yet figured out how to add an initializer in a migration, so you will
 have to create an initial root Inode.
 
 ```python
-Inode(rootname='testapp', name='/', is_directory=True).save()
+Inode.methods.createroot(rootname='testapp')
 ```
 
 If you do not do this, it will return a 500 error message.
@@ -41,7 +41,7 @@ If you do not do this, it will return a 500 error message.
 3. Create the database migrations and perform the migration.
 4. Create the initial root Inode element.
 ```python
-Inode(rootname='testapp', name='/').save()
+Inode.methods.createroot(rootname='testapp')
 ```
 5. Add in the necessary line in your urls.py file. Example is listed [here](https://github.com/FarhansCode/file_repository/blob/master/testapp/urls.py#L7).
 
