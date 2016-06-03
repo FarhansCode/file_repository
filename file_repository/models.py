@@ -38,8 +38,7 @@ class Inode(models.Model):
     def create_file(self, name, content):
         try:
             exists = self.inodes.get(name=name)
-            exists.error = 409
-            return exists
+            raise Inode.NameConflict(name)
         except Inode.DoesNotExist:
             pass
 
@@ -53,7 +52,7 @@ class Inode(models.Model):
     def create_directory(self, name):
         try:
             exists = self.inodes.get(name=name)
-            exists.error = 409
+            raise Inode.NameConflict(name)
         except Inode.DoesNotExist:
             pass
 
@@ -77,3 +76,21 @@ class Inode(models.Model):
         # Now delete the inode links from the DB
         files.all().delete()
         self.delete()
+
+    class Error404(Exception):
+        def __str__(self):
+            return repr("Inode does not exist")
+        pass
+    class Error500(Exception):
+        def __init__(self, msg):
+            self.msg = msg
+        def __str__(self):
+            return repr(self.msg)
+    class Redirect302(Exception):
+        def __init__(self, path):
+            self.newpath = path
+    class NameConflict(Exception):
+        def __init__(self, name):
+            self.name = name
+        def __str__(self):
+            return repr("Inode %s already exists" % self.name)

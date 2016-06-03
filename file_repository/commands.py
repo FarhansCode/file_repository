@@ -13,9 +13,7 @@ def get_inode(filedir, rootname):
                                           name='/',
                                           is_directory=True)
     except Inode.DoesNotExist:
-        error_inode = Inode(rootname=rootname, name='/', is_directory=True)
-        error_inode.error = 500 
-        return error_inode
+        raise Inode.Error500('rootname %s does not exist' % rootname)
 
     if filedir == '' or filedir == '/':
         return rootdirectory # Quit if its just the root
@@ -30,14 +28,12 @@ def get_inode(filedir, rootname):
                     return current_directory
                 elif lastnode.group(2) is not None:
                     inode = current_directory.inodes.get(name=lastnode.group(2))
-                    if inode.is_directory == True and
-                       lastnode.group(3) is not '/':
-                        inode.error = 302
-                        inode.redirect = filedir + '/'
+                    if inode.is_directory == True and \
+                      lastnode.group(3) is not '/':
+                        raise Inode.Redirect302(filedir+'/')
                     return inode
             except Inode.DoesNotExist:
-                current_directory.error = 404
-                return current_directory
+                raise Inode.Error404
 
         response = re.match('^([\w\-\.\ ]+)\/([\w\-\.\ \/]+)', tempurl)
         if response == None: # Its the last node, kick it back up

@@ -21,16 +21,15 @@ def repository(request, filedir):
     directoryform = DirectoryForm
     fileform = FileForm
 
-    i = get_inode(filedir, 'testapp')
+    try:
+        i = get_inode(filedir, 'testapp')
+    except Inode.Error404:
+        return HttpResponseNotFound('<h1>File or directory not found</h1>')
+    except Inode.Error500:
+        return HttpResponseServerError('<h1>Internal server error</h1>')
+    except Inode.Redirect302 as e:
+        return HttpResponsePermanentRedirect('/repository/' + e.path)
 
-    if hasattr(i, 'error'):
-        if i.error == 404:
-            return HttpResponseNotFound('<h1>File or directory not found</h1>')
-        elif i.error == 500:
-            return HttpResponseServerError('<h1>Internal server error</h1>')
-        elif i.error == 302:
-            return HttpResponsePermanentRedirect('/repository/' + i.redirect)
-    
     if request.method == 'POST':
         deleteinode = DeleteInode(request.POST)
 
