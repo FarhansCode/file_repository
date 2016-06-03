@@ -9,7 +9,6 @@ from django.http import HttpResponsePermanentRedirect
 # You would have to do this in your application
 from file_repository.models import Inode
 from file_repository.forms import DirectoryForm, FileForm, DeleteInode
-from file_repository.commands import get_inode
 
 import magic
 
@@ -22,7 +21,7 @@ def repository(request, filedir):
     fileform = FileForm
 
     try:
-        i = get_inode(filedir, 'testapp')
+        i = Inode.methods.getinode(filedir, 'testapp')
     except Inode.Error404:
         return HttpResponseNotFound('<h1>File or directory not found</h1>')
     except Inode.Error500:
