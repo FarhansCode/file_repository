@@ -59,25 +59,21 @@ class GetInodeTestCase(TestCase):
 
     def test_get_inode_with_slash(self):
         root = Inode.methods.getroot('testapp')
-        i = Inode.methods.getinode('new_directory/subdirectory/lastdirectory/', 'testapp')
+        i = Inode.methods.getinode('new_directory/subdirectory/lastdirectory/',
+                                   'testapp')
         self.assertEqual(self.lastdirectory, i)
+
     def test_get_node_without_slash(self):
         root = Inode.methods.getroot('testapp')
-        try:
-            i = Inode.methods.getinode('new_directory/subdirectory/lastdirectory',
-                          'testapp')
-        except Inode.Redirect302 as e:
-            self.assertEqual(e.newpath,
-                             'new_directory/subdirectory/lastdirectory/')
+        with self.assertRaises(Inode.Redirect302):
+            root.methods.getinode('new_directory/subdirectory/lastdirectory',
+                                  'testapp')
+
     def test_nonexistent_node(self):
         root = Inode.methods.getroot('testapp')
-        try:
-            i = Inode.methods.getinode('lkasjdfklajsfkljasklf', 'testapp')
-        except Inode.Error404:
-            self.assertTrue(True)
+        with self.assertRaises(Inode.Error404):
+            Inode.methods.getinode('lkasjdfklajsfkljasklf', 'testapp')
 
     def test_nonexistent_root(self):
-        try:
-            i = Inode.methods.getinode('alskdfj', 'does-not-exist')
-        except Inode.Error500:
-            self.assertTrue(True)
+        with self.assertRaises(Inode.Error500):
+            Inode.methods.getinode('alskdfj', 'does-not-exist')

@@ -42,7 +42,7 @@ class Inode(models.Model):
         except Inode.DoesNotExist:
             pass
 
-        new_file = Inode(is_directory=False)
+        new_file = Inode(is_directory=False, rootname=self.rootname)
         new_file.content = content
         new_file.name = name
         new_file.save()
@@ -56,7 +56,7 @@ class Inode(models.Model):
         except Inode.DoesNotExist:
             pass
 
-        new_directory = Inode(is_directory=True)
+        new_directory = Inode(is_directory=True, rootname=self.rootname)
         new_directory.name = name
         new_directory.save()
         self.inodes.add(new_directory)
