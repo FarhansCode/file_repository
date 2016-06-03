@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
 from django.http import HttpResponseServerError
+from django.http import HttpResponsePermanentRedirect
 
 # You would have to do this in your application
 from file_repository.models import Inode
@@ -27,6 +28,8 @@ def repository(request, filedir):
             return HttpResponseNotFound('<h1>File or directory not found</h1>')
         elif i.error == 500:
             return HttpResponseServerError('<h1>Internal server error</h1>')
+        elif i.error == 302:
+            return HttpResponsePermanentRedirect('/repository/' + i.redirect)
     
     if request.method == 'POST':
         deleteinode = DeleteInode(request.POST)

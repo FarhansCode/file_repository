@@ -29,7 +29,12 @@ def get_inode(filedir, rootname):
                 if lastnode.group(1) is '/' and lastnode.group(2) is None:
                     return current_directory
                 elif lastnode.group(2) is not None:
-                    return current_directory.inodes.get(name=lastnode.group(2)) 
+                    inode = current_directory.inodes.get(name=lastnode.group(2))
+                    if inode.is_directory == True and
+                       lastnode.group(3) is not '/':
+                        inode.error = 302
+                        inode.redirect = filedir + '/'
+                    return inode
             except Inode.DoesNotExist:
                 current_directory.error = 404
                 return current_directory
