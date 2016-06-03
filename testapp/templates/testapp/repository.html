@@ -1,10 +1,20 @@
 
 <table>
 <tr><th>Type</th><th>Name</th></tr>
+{% if filedir == '/' %}
+
 {% for subnode in directorynode.inodes.all %}
-{{filedir}} | {{subnode}} | {% url 'repository' filedir=filedir %}</a>
-<br/>
+{{ subnode }}
 {% endfor %}
+
+{% else %}
+
+{% for subnode in directorynode.inodes.all %}
+{{filedir}}{{ subnode }}
+{% endfor %}
+
+{% endif %}
+<br/>
 </table>
 
 <form method=POST>{% csrf_token %}

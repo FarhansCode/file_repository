@@ -22,8 +22,6 @@ def repository(request, filedir):
 
     i = get_inode(filedir, 'testapp')
 
-    print("The root directory is: %s" % i.get_path())
-
     if hasattr(i, 'error'):
         if i.error == 404:
             return HttpResponseNotFound('<h1>File or directory not found</h1>')
@@ -51,7 +49,7 @@ def repository(request, filedir):
         context = {'directorynode':             i,
                    'directoryform':     directoryform,
                    'fileform':          fileform,    
-                   'filedir':           filedir if filedir is not None else '/',
+                   'filedir':           filedir,
                   }
 
         return render(request, 'testapp/repository.html', context)
